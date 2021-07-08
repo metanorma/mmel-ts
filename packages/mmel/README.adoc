@@ -1,0 +1,3 @@
+= MMEL tools for TypeScript
+
+Includes interfaces and basic serialization/deserialization functionality.

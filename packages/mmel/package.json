@@ -1,0 +1,18 @@
+{
+  "name": "@riboseinc/mmel",
+  "version": "0.1.0",
+  "main": "index.js",
+  "repository": "https://github.com/metanorma/mmel",
+  "author": "Ribose Inc. <open.source@ribose.com>",
+  "scripts": {
+  },
+  "files": [
+    "*.js",
+    "*.js.map",
+    "*.d.ts",
+    "**/*.js",
+    "**/*.js.map",
+    "**/*.d.ts"
+  ],
+  "license": "MIT"
+}

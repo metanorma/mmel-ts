@@ -4,8 +4,7 @@
   "main": "index.js",
   "repository": "https://github.com/metanorma/mmel",
   "author": "Ribose Inc. <open.source@ribose.com>",
-  "scripts": {
-  },
+  "scripts": {},
   "files": [
     "*.js",
     "*.js.map",

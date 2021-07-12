@@ -1,5 +1,5 @@
 export default interface Reference {
-  id: string
-  document: string
-  clause: string
+  id: string;
+  document: string;
+  clause: string;
 }

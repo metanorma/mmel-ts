@@ -8,22 +8,21 @@ import type Provision from './Provision';
 import type Reference from './Reference';
 import type Role from './Role';
 
+export interface Standard {
+  meta: Metadata;
 
-export interface Standard {  
-  meta: Metadata
+  roles: Role[];
+  provisions: Provision[];
+  pages: Subprocess[];
+  processes: Process[];
+  dataclasses: DataClass[];
+  regs: Registry[];
+  events: Event[];
+  gateways: Gateway[];
+  refs: Reference[];
+  approvals: Approval[];
+  enums: Enum[];
+  vars: Variable[];
 
-  roles: Role[]
-  provisions: Provision[]
-  pages: Subprocess[]
-  processes: Process[]
-  dataclasses: DataClass[]
-  regs: Registry[]
-  events: Event[]
-  gateways: Gateway[]
-  refs: Reference[]
-  approvals: Approval[]
-  enums: Enum[]
-  vars: Variable[]  
-
-  root: Subprocess | null  
+  root: Subprocess | null;
 }

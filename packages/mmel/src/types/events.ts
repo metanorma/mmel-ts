@@ -1,24 +1,24 @@
 export default interface Event {
-  eventType: 'start' | 'end' | 'signalcatch' | 'timer'
+  eventType: 'start' | 'end' | 'signalcatch' | 'timer';
 }
 
 export interface StartEvent extends Event {
-  eventType: 'start'
+  eventType: 'start';
 }
 
 export interface EndEvent extends Event {
-  eventType: 'end'
+  eventType: 'end';
 }
 
 export interface SignalCatchEvent extends Event {
-  eventType: 'signalcatch'
-  signal: string
+  eventType: 'signalcatch';
+  signal: string;
 }
 
 export interface TimerEvent extends Event {
-  eventType: 'timer'
+  eventType: 'timer';
 
   // Timer information
-  type: string
-  para: string
+  type: string;
+  para: string;
 }

@@ -2,7 +2,7 @@
   "name": "@riboseinc/mmel",
   "version": "0.1.0",
   "main": "index.js",
-  "repository": "https://github.com/metanorma/mmel",
+  "repository": "https://github.com/metanorma/mmel-ts",
   "author": "Ribose Inc. <open.source@ribose.com>",
   "scripts": {},
   "files": [

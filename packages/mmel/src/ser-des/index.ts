@@ -1,7 +1,7 @@
+import Standard from '../types/Standard';
 import parse from './parse';
 import resolve from './resolve';
 import _dump from './dump';
-import Standard from '../types/Standard';
 import { PARSER_CONFIG, RESOLVER_CONFIG, DUMPER_CONFIG } from './config';
 
 export function load(mmelString: string): Standard {

@@ -1,11 +1,14 @@
 import type Resolvable from '../types/Resolvable';
-import type { DataClass, Registry } from '../types/data';
+import type { DataClass, Enum, Registry, Variable } from '../types/data';
 import type Metadata from '../types/Metadata';
 import type { ResolvableProcess, ResolvableSubprocess } from '../types/process';
 import type { ResolvableProvision } from '../types/Provision';
 import type Reference from '../types/Reference';
 import type Role from '../types/Role';
 import Standard from '../types/Standard';
+import { ResolvableApproval } from '../types/Approval';
+import Gateway from '../types/Gateway';
+import EventNode from '../types/events';
 
 export type DumperConfiguration = {
   [key in keyof Omit<Standard, 'meta' | 'root'>]: Dumper<Standard[key][number]>;
@@ -21,15 +24,19 @@ export interface ParseContext {
   metadata: Metadata | null;
   roles: Record<string, Role>;
 
+  approvals: Record<string, ResolvableApproval>;
   provisions: Record<string, ResolvableProvision>;
   processes: Record<string, ResolvableProcess>;
   pages: Record<string, ResolvableSubprocess>;
-
+  
   // XXX: Make resolvable
   registers: Record<string, Registry>;
   references: Record<string, Reference>;
   dataClasses: Record<string, DataClass>;
-  events: Record<string, Event>;
+  events: Record<string, EventNode>;
+  enums: Record<string, Enum>;
+  gateways: Record<string, Gateway>;
+  variables: Record<string, Variable>;
 }
 
 /* Maps an MMEL keyword to parser function. */

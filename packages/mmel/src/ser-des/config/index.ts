@@ -3,10 +3,15 @@ import type {
   ParserConfiguration,
   ResolverConfiguration,
 } from '../types';
+import { dumpApproval, parseApproval, resolveApproval } from './approval';
+import { dumpDataClass, dumpEnum, dumpRegistry, dumpVariable, parseDataClass, parseEnum, parseRegistry, resolveDataClass, resolveRegistry } from './data';
+import { dumpEvent, parseEndEvent, parseSignalCatchEvent, parseStartEvent, parseTimerEvent } from './event';
+import { dumpGateway, parseExclusiveGate } from './gateway';
 
 import { parseMetadata } from './metadata';
-import { parseProcess, resolveProcess, dumpProcess } from './process';
+import { parseProcess, resolveProcess, dumpProcess, dumpSubprocess } from './process';
 import { parseProvision, resolveProvision, dumpProvision } from './provision';
+import { dumpReference } from './reference';
 import { parseRole, dumpRole } from './role';
 
 export const PARSER_CONFIG: ParserConfiguration = {
@@ -32,6 +37,50 @@ export const PARSER_CONFIG: ParserConfiguration = {
     takesID: true,
     parse: parseProcess,
   },
+
+  approval: {    
+    takesID: true,
+    parse: parseApproval,
+  },
+
+  class: {
+    takesID: true,
+    parse: parseDataClass,
+  },
+
+  enum: {
+    takesID: true,
+    parse: parseEnum,
+  },
+
+  data_registry: {
+    takesID: true,
+    parse: parseRegistry,
+  },
+
+  exclusive_gateway: {
+    takesID: true,
+    parse: parseExclusiveGate,
+  },
+
+  start: {
+    takesID: true,
+    parse: parseStartEvent,
+  },
+  
+  end: {
+    takesID: true,
+    parse: parseEndEvent,
+  },
+  
+  signalcatch: {
+    takesID: true,
+    parse: parseSignalCatchEvent,
+  },
+  timer: {
+    takesID: true,
+    parse: parseTimerEvent,
+  }
 };
 
 export const RESOLVER_CONFIG: ResolverConfiguration = {
@@ -41,6 +90,15 @@ export const RESOLVER_CONFIG: ResolverConfiguration = {
   processes: {
     resolve: resolveProcess,
   },
+  approvals: {
+    resolve: resolveApproval,
+  },
+  dataClasses: {
+    resolve: resolveDataClass,
+  },
+  registers: {
+    resolve: resolveRegistry,
+  }
 };
 
 /*

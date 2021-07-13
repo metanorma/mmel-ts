@@ -1,5 +1,6 @@
 import type Approval from './Approval';
 import type { DataClass, Enum, Registry, Variable } from './data';
+import EventNode from './events';
 import type Gateway from './Gateway';
 import type Metadata from './Metadata';
 import type Process from './process';
@@ -17,7 +18,7 @@ export default interface Standard {
   processes: Process[];
   dataclasses: DataClass[];
   regs: Registry[];
-  events: Event[];
+  events: EventNode[];
   gateways: Gateway[];
   refs: Reference[];
   approvals: Approval[];

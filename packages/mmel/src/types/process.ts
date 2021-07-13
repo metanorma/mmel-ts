@@ -37,13 +37,13 @@ export type ResolvableSubprocess = Resolvable<
   'childs' | 'edges' | 'data'
 >;
 
-interface SubprocessComponent {
+export interface SubprocessComponent {
   element: Node | null;
   x: number;
   y: number;
 }
 
-interface Edge {
+export interface Edge {
   id: string;
   from: SubprocessComponent | null;
   to: SubprocessComponent | null;

@@ -8,14 +8,18 @@ export default function parse(
   let ctx: ParseContext = {
     root: '',
     metadata: null,
+    approvals: {},
     roles: {},
     processes: {},
     pages: {},
+    gateways: {},
     registers: {},
     references: {},
     provisions: {},
     dataClasses: {},
     events: {},
+    enums: {},
+    variables: {},
   };
 
   const token: Array<string> = tokenize(mmelString);

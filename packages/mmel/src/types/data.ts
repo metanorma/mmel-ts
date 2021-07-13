@@ -23,7 +23,7 @@ export interface DataAttribute {
   cardinality: string;
   definition: string;
   ref: Reference[];
-  satisfy: Array<string>;
+  satisfy: string[];
 }
 
 export type ResolveableDataAttribute = Resolvable<DataAttribute, 'ref'>;

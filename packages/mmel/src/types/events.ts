@@ -1,21 +1,22 @@
-export default interface Event {
+export default interface EventNode {
+  id: string,
   eventType: 'start' | 'end' | 'signalcatch' | 'timer';
 }
 
-export interface StartEvent extends Event {
+export interface StartEvent extends EventNode {
   eventType: 'start';
 }
 
-export interface EndEvent extends Event {
+export interface EndEvent extends EventNode {
   eventType: 'end';
 }
 
-export interface SignalCatchEvent extends Event {
+export interface SignalCatchEvent extends EventNode {
   eventType: 'signalcatch';
   signal: string;
 }
 
-export interface TimerEvent extends Event {
+export interface TimerEvent extends EventNode {
   eventType: 'timer';
 
   // Timer information

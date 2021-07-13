@@ -1,3 +1,10 @@
-export type Gateway = {};
+export default interface Gateway {
+  id: string;
+  gatewayType: 'exclusive_gateway';
+};
 
-export default Gateway;
+export interface ExclusiveGateway extends Gateway {
+  id: string;
+  gatewayType: 'exclusive_gateway';
+  label:string;
+};

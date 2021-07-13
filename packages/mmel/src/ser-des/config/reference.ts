@@ -1,4 +1,4 @@
-import type { Parser } from '../types';
+import type { Dumper, Parser } from '../types';
 import { removePackage, tokenizePackage } from '../tokenize';
 import Reference from '../../types/Reference';
 
@@ -32,4 +32,12 @@ export const parseReference: Parser = (id: string, data: string) => {
   }
 
   return ctx => ({ ...ctx, references: { ...ctx.references, [id]: ref } });
+};
+
+export const dumpReference: Dumper<Reference> = function (ref) {
+  let out:string = "reference " + ref.id + " {\n";
+  out += "  document \""+ ref.document+"\"\n";
+  out += "  clause \""+ ref.clause +"\"\n";
+  out += "}\n";
+  return out;
 };

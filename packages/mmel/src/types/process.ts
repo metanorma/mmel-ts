@@ -1,3 +1,4 @@
+import { Resolvable } from './Resolvable';
 import { Registry } from './data';
 import Node from './Node';
 import Provision from './Provision';
@@ -16,6 +17,11 @@ export default interface Process {
   measure: string[];
 }
 
+export type ResolvableProcess = Resolvable<
+  Process,
+  'actor' | 'output' | 'input' | 'provision' | 'page'
+>;
+
 export interface Subprocess {
   id: string;
 
@@ -25,6 +31,11 @@ export interface Subprocess {
   edges: Edge[];
   data: SubprocessComponent[];
 }
+
+export type ResolvableSubprocess = Resolvable<
+  Subprocess,
+  'childs' | 'edges' | 'data'
+>;
 
 interface SubprocessComponent {
   element: Node | null;

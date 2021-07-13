@@ -1,3 +1,4 @@
+import { Resolvable } from './Resolvable';
 import Reference from './Reference';
 
 export default interface Provision {
@@ -7,3 +8,5 @@ export default interface Provision {
   condition: string;
   ref: Reference[];
 }
+
+export type ResolvableProvision = Resolvable<Provision, 'ref'>;

@@ -1,1 +1,3 @@
-export default interface Gateway {}
+export type Gateway = {};
+
+export default Gateway;

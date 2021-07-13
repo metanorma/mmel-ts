@@ -1,3 +1,5 @@
 = MMEL tools
 
 For `mmel` package docs, see `packages/mmel`.
+
+Please run `yarn lint` (and `yarn lint-fix` if necessary) after your changes.

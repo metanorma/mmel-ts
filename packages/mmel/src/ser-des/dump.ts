@@ -1,9 +1,9 @@
 import Standard from '../types/Standard';
-import { DUMPER_CONFIG } from './config';
 import { dumpMetadata } from './config/metadata';
 import { dumpRole } from './config/role';
+import { DumperConfiguration } from './types';
 
-export default function dump(model: Standard): string {
+export default function dump(model: Standard, dumpers: DumperConfiguration): string {
   let out = '';
 
   if (model.root !== null) {
@@ -12,7 +12,7 @@ export default function dump(model: Standard): string {
 
   out += dumpMetadata(model.meta) + '\n';
 
-  for (const [field, dumper] of Object.entries(DUMPER_CONFIG)) {
+  for (const [field, dumper] of Object.entries(dumpers)) {
     out += dumper(model[field]) + '\n';
   }
 

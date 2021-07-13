@@ -20,23 +20,23 @@ export const parseApproval: Parser = function (id, data) {
     },
   };
 
-  if (data != '') {
-    const t: Array<string> = tokenizePackage(data);
+  if (data !== '') {
+    const t: string[] = tokenizePackage(data);
     let i = 0;
     while (i < t.length) {
       const keyword: string = t[i++];
       if (i < t.length) {
-        if (keyword == 'modality') {
+        if (keyword === 'modality') {
           result.modality = t[i++];
-        } else if (keyword == 'name') {
+        } else if (keyword === 'name') {
           result.name = removePackage(t[i++]);
-        } else if (keyword == 'actor') {
+        } else if (keyword === 'actor') {
           result._relations.actor = t[i++];
-        } else if (keyword == 'approve_by') {
+        } else if (keyword === 'approve_by') {
           result._relations.approver = t[i++];
-        } else if (keyword == 'approval_record') {
+        } else if (keyword === 'approval_record') {
           result._relations.records = tokenizePackage(t[i++]);
-        } else if (keyword == 'reference') {
+        } else if (keyword === 'reference') {
           result._relations.ref = tokenizePackage(t[i++]);
         } else {
           throw new Error(
@@ -78,11 +78,11 @@ export const resolveApproval: Resolver<Approval, ResolvableApproval> =
 export const dumpApproval: Dumper<Approval> = function (approval) {
   let out: string = 'approval ' + approval.id + ' {\n';
   out += '  name "' + approval.name + '"\n';
-  if (approval.actor != null) {
+  if (approval.actor !== null) {
     out += '  actor ' + approval.actor.id + '\n';
   }
   out += '  modality ' + approval.modality + '\n';
-  if (approval.approver != null) {
+  if (approval.approver !== null) {
     out += '  approve_by ' + approval.approver.id + '\n';
   }
   if (approval.records.length > 0) {

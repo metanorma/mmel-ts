@@ -22,8 +22,8 @@ export const parseEnum: Parser = (id: string, data: string) => {
     id: id,
     values: [],
   };
-  if (data != '') {
-    const t: Array<string> = tokenizePackage(data);
+  if (data !== '') {
+    const t: string[] = tokenizePackage(data);
     let i = 0;
     while (i < t.length) {
       const vid: string = t[i++];
@@ -46,13 +46,13 @@ const parseEnumValue = (id: string, data: string) => {
     id: id,
     value: '',
   };
-  if (data != '') {
-    const t: Array<string> = tokenizePackage(data);
+  if (data !== '') {
+    const t: string[] = tokenizePackage(data);
     let i = 0;
     while (i < t.length) {
       const command: string = t[i++];
       if (i < t.length) {
-        if (command == 'definition') {
+        if (command === 'definition') {
           ev.value = removePackage(t[i++]);
         } else {
           throw new Error(
@@ -79,15 +79,15 @@ export const parseRegistry: Parser = function (id, data) {
     },
   };
 
-  if (data != '') {
-    const t: Array<string> = tokenizePackage(data);
+  if (data !== '') {
+    const t: string[] = tokenizePackage(data);
     let i = 0;
     while (i < t.length) {
       const command: string = t[i++];
       if (i < t.length) {
-        if (command == 'title') {
+        if (command === 'title') {
           result.title = removePackage(t[i++]);
-        } else if (command == 'data_class') {
+        } else if (command === 'data_class') {
           result._relations.data = t[i++];
         } else {
           throw new Error(
@@ -113,8 +113,8 @@ export const parseDataClass: Parser = function (id, data) {
     },
   };
 
-  if (data != '') {
-    const t: Array<string> = tokenizeAttributes(data);
+  if (data !== '') {
+    const t: string[] = tokenizeAttributes(data);
     let i = 0;
     while (i < t.length) {
       const basic: string = t[i++];
@@ -147,31 +147,31 @@ export const parseDataAttribute: Parser = function (basic, details) {
     },
   };
   let index = basic.indexOf('[');
-  if (index != -1) {
+  if (index !== -1) {
     result.cardinality = basic
       .substr(index + 1, basic.length - index - 2)
       .trim();
     basic = basic.substr(0, index);
   }
   index = basic.indexOf(':');
-  if (index != -1) {
+  if (index !== -1) {
     result.type = basic.substr(index + 1, basic.length - index - 1).trim();
     basic = basic.substr(0, index);
   }
   result.id = basic.trim();
-  if (details != '') {
-    const t: Array<string> = tokenizePackage(details);
+  if (details !== '') {
+    const t: string[] = tokenizePackage(details);
     let i = 0;
     while (i < t.length) {
       const keyword: string = t[i++];
       if (i < t.length) {
-        if (keyword == 'modality') {
+        if (keyword === 'modality') {
           result.modality = t[i++];
-        } else if (keyword == 'definition') {
+        } else if (keyword === 'definition') {
           result.definition = removePackage(t[i++]);
-        } else if (keyword == 'reference') {
+        } else if (keyword === 'reference') {
           result._relations.ref = tokenizePackage(t[i++]);
-        } else if (keyword == 'satisfy') {
+        } else if (keyword === 'satisfy') {
           result.satisfy = tokenizePackage(t[i++]);
         } else {
           throw new Error(
@@ -203,7 +203,7 @@ export const resolveDataClass: Resolver<DataClass, ResolvableDataClass> =
 export const resolveRegistry: Resolver<Registry, ResolvableRegistry> =
   function (ctx, unresolved) {
     const p = { ...unresolved };
-    if (unresolved._relations.data != '') {
+    if (unresolved._relations.data !== '') {
       p.data = resolveFromContext(
         ctx,
         'dataClasses',
@@ -235,15 +235,15 @@ export const dumpDataClass: Dumper<DataClass> = function (dataclass) {
 
 const toDataAttributeModel = (attribute: DataAttribute) => {
   let out: string = '  ' + attribute.id;
-  if (attribute.type != '') {
+  if (attribute.type !== '') {
     out += ': ' + attribute.type;
   }
-  if (attribute.cardinality != '') {
+  if (attribute.cardinality !== '') {
     out += '[' + attribute.cardinality + ']';
   }
   out += ' {\n';
   out += '    definition "' + attribute.definition + '"\n';
-  if (attribute.modality != '') {
+  if (attribute.modality !== '') {
     out += '    modality ' + attribute.modality + '\n';
   }
   if (attribute.satisfy.length > 0) {
@@ -283,7 +283,7 @@ export const dumpEnum: Dumper<Enum> = function (en) {
 export const dumpRegistry: Dumper<Registry> = function (reg) {
   let out: string = 'data_registry ' + reg.id + ' {\n';
   out += '  title "' + reg.title + '"\n';
-  if (reg.data != null) {
+  if (reg.data !== null) {
     out += '  data_class ' + reg.data.id + '\n';
   }
   out += '}\n';
@@ -292,13 +292,13 @@ export const dumpRegistry: Dumper<Registry> = function (reg) {
 
 export const dumpVariable: Dumper<Variable> = function (v) {
   let out: string = 'measurement ' + v.id + ' {\n';
-  if (v.type != '') {
+  if (v.type !== '') {
     out += '  type ' + v.type + '\n';
   }
-  if (v.definition != '') {
+  if (v.definition !== '') {
     out += '  definition "' + v.definition + '"\n';
   }
-  if (v.description != '') {
+  if (v.description !== '') {
     out += '  description "' + v.description + '"\n';
   }
   out += '}\n';

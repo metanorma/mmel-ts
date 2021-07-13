@@ -9,6 +9,7 @@ import type Role from '../types/Role';
 import type Standard from '../types/Standard';
 import type Gateway from '../types/Gateway';
 import type EventNode from '../types/events';
+import { ResolvableSubprocessComponent } from '../types/flow';
 
 export type DumperConfiguration = {
   [key in keyof Omit<Standard, 'meta' | 'root'>]: Dumper<Standard[key][number]>;
@@ -39,6 +40,10 @@ export interface ParseContext {
   variables: Record<string, Variable>;
 }
 
+export type SubprocessParseContext = ResolvableSubprocess & {
+  _components: Record<string, ResolvableSubprocessComponent>;
+};
+
 /* Maps an MMEL keyword to parser function. */
 export interface ParserConfiguration {
   [keyword: string]: {
@@ -49,9 +54,7 @@ export interface ParserConfiguration {
 
 /* Parser function takes tokens and returns a function that updates parse context.
    The number of tokens depends on takesID value in its ParserConfiguration entry. */
-export type Parser = (
-  ...tokens: string[]
-) => (ctx: ParseContext) => ParseContext;
+export type Parser<C = ParseContext> = (...tokens: string[]) => (ctx: C) => C;
 
 /* Maps an item type to corresponding resolver function. */
 export type ResolverConfiguration = Partial<

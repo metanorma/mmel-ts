@@ -8,13 +8,13 @@ export const parseExclusiveGate: Parser = function (id, data) {
     gatewayType: 'exclusive_gateway',
     label: '',
   };
-  if (data != '') {
+  if (data !== '') {
     const t: Array<string> = tokenizePackage(data);
     let i = 0;
     while (i < t.length) {
       const command: string = t[i++];
       if (i < t.length) {
-        if (command == 'label') {
+        if (command === 'label') {
           gateway.label = removePackage(t[i++]);
         } else {
           throw new Error(
@@ -32,14 +32,14 @@ export const parseExclusiveGate: Parser = function (id, data) {
 };
 
 export const dumpGateway: Dumper<Gateway> = function (gate) {
-  if (gate.gatewayType == 'exclusive_gateway') {
+  if (gate.gatewayType === 'exclusive_gateway') {
     return dumpEGate(gate as ExclusiveGateway);
   }
 };
 
 function dumpEGate(egate: ExclusiveGateway) {
   let out: string = 'exclusive_gateway ' + egate.id + ' {\n';
-  if (egate.label != '') {
+  if (egate.label !== '') {
     out += '  label "' + egate.label + '"\n';
   }
   out += '}\n';

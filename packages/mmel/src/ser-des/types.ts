@@ -1,7 +1,9 @@
 import type Resolvable from '../types/Resolvable';
 import type { DataClass, Enum, Registry, Variable } from '../types/data';
 import type Metadata from '../types/Metadata';
-import type { ResolvableProcess, ResolvableSubprocess } from '../types/process';
+import type { ResolvableProcess } from '../types/process';
+import type { ResolvableSubprocess } from '../types/flow';
+import type { ResolvableSubprocessComponent } from '../types/flow';
 import type { ResolvableProvision } from '../types/Provision';
 import type { ResolvableApproval } from '../types/Approval';
 import type Reference from '../types/Reference';
@@ -9,7 +11,6 @@ import type Role from '../types/Role';
 import type Standard from '../types/Standard';
 import type Gateway from '../types/Gateway';
 import type EventNode from '../types/events';
-import { ResolvableSubprocessComponent } from '../types/flow';
 
 export type DumperConfiguration = {
   [key in keyof Omit<Standard, 'meta' | 'root'>]: Dumper<Standard[key][number]>;

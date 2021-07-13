@@ -8,7 +8,7 @@ import type Provision from './Provision';
 import type Reference from './Reference';
 import type Role from './Role';
 
-export interface Standard {
+export default interface Standard {
   meta: Metadata;
 
   roles: Role[];

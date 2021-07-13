@@ -2,19 +2,19 @@ import Gateway, { ExclusiveGateway } from '../../types/Gateway';
 import { removePackage, tokenizePackage } from '../tokenize';
 import { Dumper, Parser } from '../types';
 
-export const parseExclusiveGate: Parser = function (id, data) {  
-  const gateway: ExclusiveGateway = {  
+export const parseExclusiveGate: Parser = function (id, data) {
+  const gateway: ExclusiveGateway = {
     id: id,
     gatewayType: 'exclusive_gateway',
-    label: "",
+    label: '',
   };
-  if (data != "") {
-    const t:Array<string> = tokenizePackage(data);
-    let i:number  = 0;
+  if (data != '') {
+    const t: Array<string> = tokenizePackage(data);
+    let i = 0;
     while (i < t.length) {
-      const command:string = t[i++];
+      const command: string = t[i++];
       if (i < t.length) {
-        if (command == "label") {
+        if (command == 'label') {
           gateway.label = removePackage(t[i++]);
         } else {
           throw new Error(
@@ -37,11 +37,11 @@ export const dumpGateway: Dumper<Gateway> = function (gate) {
   }
 };
 
-function dumpEGate(egate:ExclusiveGateway) {  
-  let out:string = "exclusive_gateway " + egate.id + " {\n";
-  if (egate.label != "") {
-    out += "  label \"" + egate.label + "\"\n";
-  }		
-  out += "}\n";
+function dumpEGate(egate: ExclusiveGateway) {
+  let out: string = 'exclusive_gateway ' + egate.id + ' {\n';
+  if (egate.label != '') {
+    out += '  label "' + egate.label + '"\n';
+  }
+  out += '}\n';
   return out;
 }

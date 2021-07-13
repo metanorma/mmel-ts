@@ -15,5 +15,5 @@ export default interface Approval {
 
 export type ResolvableApproval = Resolvable<
   Approval,
-  "actor" | "approver" | "records" | "ref"    
+  'actor' | 'approver' | 'records' | 'ref'
 >;

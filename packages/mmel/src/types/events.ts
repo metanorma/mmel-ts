@@ -1,5 +1,5 @@
 export default interface EventNode {
-  id: string,
+  id: string;
   eventType: 'start' | 'end' | 'signalcatch' | 'timer';
 }
 

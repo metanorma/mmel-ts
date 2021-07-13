@@ -28,7 +28,7 @@ export interface ParseContext {
   provisions: Record<string, ResolvableProvision>;
   processes: Record<string, ResolvableProcess>;
   pages: Record<string, ResolvableSubprocess>;
-  
+
   // XXX: Make resolvable
   registers: Record<string, Registry>;
   references: Record<string, Reference>;

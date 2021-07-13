@@ -2,7 +2,10 @@ import Standard from '../types/Standard';
 import { dumpMetadata } from './config/metadata';
 import { DumperConfiguration } from './types';
 
-export default function dump(model: Standard, dumpers: DumperConfiguration): string {
+export default function dump(
+  model: Standard,
+  dumpers: DumperConfiguration
+): string {
   let out = '';
 
   if (model.root !== null) {

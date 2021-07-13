@@ -5,38 +5,38 @@ import { Dumper, Parser, Resolver } from '../types';
 
 export const parseApproval: Parser = function (id, data) {
   const result: ResolvableApproval = {
-    id: id,        
-    name: "",
-    modality: "",
+    id: id,
+    name: '',
+    modality: '',
     actor: null,
     approver: null,
     records: [],
     ref: [],
     _relations: {
       actor: '',
-      approver: "",
+      approver: '',
       records: [],
       ref: [],
     },
   };
 
-  if (data != "") {
-    const t:Array<string> = tokenizePackage(data);
-    let i:number  = 0;
+  if (data != '') {
+    const t: Array<string> = tokenizePackage(data);
+    let i = 0;
     while (i < t.length) {
-      const keyword:string = t[i++];
+      const keyword: string = t[i++];
       if (i < t.length) {
-        if (keyword == "modality") {
+        if (keyword == 'modality') {
           result.modality = t[i++];
-        } else if (keyword == "name") {
+        } else if (keyword == 'name') {
           result.name = removePackage(t[i++]);
-        } else if (keyword == "actor") {
+        } else if (keyword == 'actor') {
           result._relations.actor = t[i++];
-        } else if (keyword == "approve_by") {
+        } else if (keyword == 'approve_by') {
           result._relations.approver = t[i++];
-        } else if (keyword == "approval_record") {
+        } else if (keyword == 'approval_record') {
           result._relations.records = tokenizePackage(t[i++]);
-        } else if (keyword == "reference") {
+        } else if (keyword == 'reference') {
           result._relations.ref = tokenizePackage(t[i++]);
         } else {
           throw new Error(
@@ -49,54 +49,56 @@ export const parseApproval: Parser = function (id, data) {
         );
       }
     }
-  }  
+  }
   return ctx => ({ ...ctx, approvals: { ...ctx.approvals, [id]: result } });
 };
 
-export const resolveApproval: Resolver<Approval, ResolvableApproval> = function (
-  ctx,
-  unresolved
-) {
-  const p = { ...unresolved };
-  if (unresolved._relations.actor !== '') {
-    p.actor = resolveFromContext(ctx, 'roles', unresolved._relations.actor);
-  }
-  if (unresolved._relations.actor !== '') {
-    p.approver = resolveFromContext(ctx, 'roles', unresolved._relations.approver);
-  }
-  for (const id of unresolved._relations.records) {
-    p.records.push(resolveFromContext(ctx, 'registers', id));
-  }
-  for (const id of unresolved._relations.ref) {
-    p.ref.push(resolveFromContext(ctx, 'registers', id));
-  }  
-  return p;
-};
+export const resolveApproval: Resolver<Approval, ResolvableApproval> =
+  function (ctx, unresolved) {
+    const p = { ...unresolved };
+    if (unresolved._relations.actor !== '') {
+      p.actor = resolveFromContext(ctx, 'roles', unresolved._relations.actor);
+    }
+    if (unresolved._relations.actor !== '') {
+      p.approver = resolveFromContext(
+        ctx,
+        'roles',
+        unresolved._relations.approver
+      );
+    }
+    for (const id of unresolved._relations.records) {
+      p.records.push(resolveFromContext(ctx, 'registers', id));
+    }
+    for (const id of unresolved._relations.ref) {
+      p.ref.push(resolveFromContext(ctx, 'registers', id));
+    }
+    return p;
+  };
 
 export const dumpApproval: Dumper<Approval> = function (approval) {
-  let out:string = "approval " + approval.id + " {\n"
-  out += "  name \"" + approval.name + "\"\n"
+  let out: string = 'approval ' + approval.id + ' {\n';
+  out += '  name "' + approval.name + '"\n';
   if (approval.actor != null) {
-    out += "  actor " + approval.actor.id + "\n"
+    out += '  actor ' + approval.actor.id + '\n';
   }
-  out += "  modality " + approval.modality + "\n"
+  out += '  modality ' + approval.modality + '\n';
   if (approval.approver != null) {
-    out += "  approve_by " + approval.approver.id + "\n"
-  }		
+    out += '  approve_by ' + approval.approver.id + '\n';
+  }
   if (approval.records.length > 0) {
-    out += "  approval_record {\n"
-    for (let dr of approval.records) {
-      out += "    " + dr.id + "\n"
+    out += '  approval_record {\n';
+    for (const dr of approval.records) {
+      out += '    ' + dr.id + '\n';
     }
-    out += "  }\n"
+    out += '  }\n';
   }
   if (approval.ref.length > 0) {
-    out += "  reference {\n"
-    for (let r of approval.ref) {
-      out += "    " + r.id + "\n"
+    out += '  reference {\n';
+    for (const r of approval.ref) {
+      out += '    ' + r.id + '\n';
     }
-    out += "  }\n"
-  }		
-  out += "}\n"
-  return out
+    out += '  }\n';
+  }
+  out += '}\n';
+  return out;
 };

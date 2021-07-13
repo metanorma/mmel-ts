@@ -4,12 +4,33 @@ import type {
   ResolverConfiguration,
 } from '../types';
 import { dumpApproval, parseApproval, resolveApproval } from './approval';
-import { dumpDataClass, dumpEnum, dumpRegistry, dumpVariable, parseDataClass, parseEnum, parseRegistry, resolveDataClass, resolveRegistry } from './data';
-import { dumpEvent, parseEndEvent, parseSignalCatchEvent, parseStartEvent, parseTimerEvent } from './event';
+import {
+  dumpDataClass,
+  dumpEnum,
+  dumpRegistry,
+  dumpVariable,
+  parseDataClass,
+  parseEnum,
+  parseRegistry,
+  resolveDataClass,
+  resolveRegistry,
+} from './data';
+import {
+  dumpEvent,
+  parseEndEvent,
+  parseSignalCatchEvent,
+  parseStartEvent,
+  parseTimerEvent,
+} from './event';
 import { dumpGateway, parseExclusiveGate } from './gateway';
 
 import { parseMetadata } from './metadata';
-import { parseProcess, resolveProcess, dumpProcess, dumpSubprocess } from './process';
+import {
+  parseProcess,
+  resolveProcess,
+  dumpProcess,
+  dumpSubprocess,
+} from './process';
 import { parseProvision, resolveProvision, dumpProvision } from './provision';
 import { dumpReference } from './reference';
 import { parseRole, dumpRole } from './role';
@@ -38,7 +59,7 @@ export const PARSER_CONFIG: ParserConfiguration = {
     parse: parseProcess,
   },
 
-  approval: {    
+  approval: {
     takesID: true,
     parse: parseApproval,
   },
@@ -67,12 +88,12 @@ export const PARSER_CONFIG: ParserConfiguration = {
     takesID: true,
     parse: parseStartEvent,
   },
-  
+
   end: {
     takesID: true,
     parse: parseEndEvent,
   },
-  
+
   signalcatch: {
     takesID: true,
     parse: parseSignalCatchEvent,
@@ -80,7 +101,7 @@ export const PARSER_CONFIG: ParserConfiguration = {
   timer: {
     takesID: true,
     parse: parseTimerEvent,
-  }
+  },
 };
 
 export const RESOLVER_CONFIG: ResolverConfiguration = {
@@ -98,7 +119,7 @@ export const RESOLVER_CONFIG: ResolverConfiguration = {
   },
   registers: {
     resolve: resolveRegistry,
-  }
+  },
 };
 
 /*

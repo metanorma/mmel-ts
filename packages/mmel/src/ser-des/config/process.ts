@@ -1,10 +1,16 @@
-import Process, { Edge, ResolvableProcess, ResolvableSubprocess, Subprocess, SubprocessComponent } from '../../types/process';
+import Process, {
+  Edge,
+  ResolvableProcess,
+  ResolvableSubprocess,
+  Subprocess,
+  SubprocessComponent,
+} from '../../types/process';
 import { resolveFromContext } from '../resolve';
 import { removePackage, tokenizePackage } from '../tokenize';
 import { Dumper, Parser, Resolver } from '../types';
 
 export const parseSubprocess: Parser = function (id, data) {
-  const result: ResolvableSubprocess = {    
+  const result: ResolvableSubprocess = {
     id: id,
     childs: [],
     edges: [],
@@ -13,19 +19,19 @@ export const parseSubprocess: Parser = function (id, data) {
       childs: [],
       edges: [],
       data: [],
-    }      
+    },
   };
-  if (data != "") {
+  if (data != '') {
     const t: Array<string> = tokenizePackage(data);
-    let i: number = 0;
+    let i = 0;
     while (i < t.length) {
-      let keyword: string = t[i++];
+      const keyword: string = t[i++];
       if (i < t.length) {
-        if (keyword == "elements") {
+        if (keyword == 'elements') {
           readElements(result, removePackage(t[i++]));
-        } else if (keyword == "process_flow") {
-          readEdges(result, removePackage(t[i++]));            
-        } else if (keyword == "data") {
+        } else if (keyword == 'process_flow') {
+          readEdges(result, removePackage(t[i++]));
+        } else if (keyword == 'data') {
           readData(result, removePackage(t[i++]));
         } else {
           throw new Error(
@@ -40,11 +46,11 @@ export const parseSubprocess: Parser = function (id, data) {
     }
   }
   return ctx => ({ ...ctx, pages: { ...ctx.pages, [id]: result } });
-}
+};
 
-function readElements(sub:ResolvableSubprocess, data: string) {
+function readElements(sub: ResolvableSubprocess, data: string) {
   const t: Array<string> = tokenizePackage(data);
-  let i: number = 0;
+  let i = 0;
   while (i < t.length) {
     const name: string = t[i++];
     if (i < t.length) {
@@ -59,31 +65,35 @@ function readElements(sub:ResolvableSubprocess, data: string) {
   }
 }
 
-function readData(sub:ResolvableSubprocess, data: string) {
+function readData(sub: ResolvableSubprocess, data: string) {
   const t: Array<string> = tokenizePackage(data);
-  let i: number = 0;
+  let i = 0;
   while (i < t.length) {
     const name: string = t[i++];
     if (i < t.length) {
-      let id = name.trim();
-      let nc = parseSubprocessComponent(id, t[i++]);
+      const id = name.trim();
+      const nc = parseSubprocessComponent(id, t[i++]);
       sub.p_data.push(nc);
       sub.map.set(id, nc.content);
     } else {
-      throw new Error('Parsing error: data in subprocess. Expecting value for ' + name)
+      throw new Error(
+        'Parsing error: data in subprocess. Expecting value for ' + name
+      );
     }
   }
 }
 
-function readEdges(sub:ResolvableSubprocess, data: string) {
-  let t: Array<string> = tokenizePackage(data);
-  let i: number = 0;
-  while (i < t.length) {      
-    let id: string = t[i++];
+function readEdges(sub: ResolvableSubprocess, data: string) {
+  const t: Array<string> = tokenizePackage(data);
+  let i = 0;
+  while (i < t.length) {
+    const id: string = t[i++];
     if (i < t.length) {
       sub.p_edges.push(parseEdge(id.trim(), t[i++]));
     } else {
-      throw new Error('Parsing error: edges in subprocess. Expecting value for ' + id);
+      throw new Error(
+        'Parsing error: edges in subprocess. Expecting value for ' + id
+      );
     }
   }
 }
@@ -215,51 +225,51 @@ export const dumpProcess: Dumper<Process> = function (process) {
 };
 
 export const dumpSubprocess: Dumper<Subprocess> = function (sub) {
-  let out: string = "subprocess " + sub.id + " {\n";
-  out += "  elements {\n";
-  sub.childs.forEach((x) => {
+  let out: string = 'subprocess ' + sub.id + ' {\n';
+  out += '  elements {\n';
+  sub.childs.forEach(x => {
     out += dumpSubprocessComponent(x);
   });
-  out += "  }\n";
-  out += "  process_flow {\n";
-  sub.edges.forEach((e) => {
+  out += '  }\n';
+  out += '  process_flow {\n';
+  sub.edges.forEach(e => {
     out += dumpEdge(e);
-  })
-  out += "  }\n";
-  out += "  data {\n";
-  sub.data.forEach((d) => {
+  });
+  out += '  }\n';
+  out += '  data {\n';
+  sub.data.forEach(d => {
     out += dumpSubprocessComponent(d);
   });
-  out += "  }\n";
-  out += "}\n";
-  return out;  
-}
+  out += '  }\n';
+  out += '}\n';
+  return out;
+};
 
-function dumpSubprocessComponent(com:SubprocessComponent): string {
+function dumpSubprocessComponent(com: SubprocessComponent): string {
   if (com.element == null) {
-    return "";
+    return '';
   }
-  let out: string = "    " + com.element.id + " {\n";
-  out += "      x " + com.x + "\n";
-  out += "      y " + com.y + "\n";
-  out += "    }\n";
+  let out: string = '    ' + com.element.id + ' {\n';
+  out += '      x ' + com.x + '\n';
+  out += '      y ' + com.y + '\n';
+  out += '    }\n';
   return out;
 }
 
-function dumpEdge(edge:Edge):string {
-  let out: string = "    " + edge.id + " {\n";
+function dumpEdge(edge: Edge): string {
+  let out: string = '    ' + edge.id + ' {\n';
   if (edge.from != null && edge.from.element != null) {
-    out += "      from " + edge.from.element.id + "\n";
+    out += '      from ' + edge.from.element.id + '\n';
   }
   if (edge.to != null && edge.to.element != null) {
-    out += "      to " + edge.to.element.id + "\n";
+    out += '      to ' + edge.to.element.id + '\n';
   }
-  if (edge.description != "") {
-    out += "      description \"" + edge.description + "\"\n";
+  if (edge.description != '') {
+    out += '      description "' + edge.description + '"\n';
   }
-  if (edge.condition != "") {
-    out += "      condition \"" + edge.condition + "\"\n";
+  if (edge.condition != '') {
+    out += '      condition "' + edge.condition + '"\n';
   }
-  out += "    }\n";
+  out += '    }\n';
   return out;
 }

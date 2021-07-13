@@ -25,7 +25,7 @@ export type ResolvableProcess = Resolvable<
 export interface Subprocess {
   id: string;
 
-  // XXX: Rename to “children”
+  // TODO: Rename to “children”
   childs: SubprocessComponent[];
 
   edges: Edge[];

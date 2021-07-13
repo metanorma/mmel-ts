@@ -1,6 +1,7 @@
 import Reference from './Reference';
 
 export interface Registry {
+  id: string;
   title: string;
   data: DataClass | null;
 }

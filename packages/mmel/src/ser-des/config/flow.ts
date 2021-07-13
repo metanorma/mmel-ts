@@ -8,12 +8,12 @@ import {
 } from '../../types/flow';
 import { resolveFromContext } from '../resolve';
 import { removePackage, tokenizePackage } from '../tokenize';
-import { Dumper, Parser, Resolver, SubprocessParseContext } from '../types';
+import { Dumper, Parser, Resolver } from '../types';
 
 // Parsers
 
 export const parseSubprocess: Parser = function (id, data) {
-  let result: SubprocessParseContext = {
+  let result: ResolvableSubprocess = {
     id: id,
     childs: [],
     edges: [],
@@ -52,7 +52,7 @@ export const parseSubprocess: Parser = function (id, data) {
   return ctx => ({ ...ctx, pages: { ...ctx.pages, [id]: result } });
 };
 
-const parseElements: Parser<SubprocessParseContext> = function (data: string) {
+const parseElements: Parser<ResolvableSubprocess> = function (data: string) {
   const t: string[] = tokenizePackage(data);
   const elements: Record<string, ResolvableSubprocessComponent> = {};
   let i = 0;
@@ -74,7 +74,7 @@ const parseElements: Parser<SubprocessParseContext> = function (data: string) {
   });
 };
 
-const parseData: Parser<SubprocessParseContext> = function (data: string) {
+const parseData: Parser<ResolvableSubprocess> = function (data: string) {
   const t: string[] = tokenizePackage(data);
   const elements: Record<string, ResolvableSubprocessComponent> = {};
   let i = 0;
@@ -96,7 +96,7 @@ const parseData: Parser<SubprocessParseContext> = function (data: string) {
   });
 };
 
-const parseEdges: Parser<SubprocessParseContext> = function (data: string) {
+const parseEdges: Parser<ResolvableSubprocess> = function (data: string) {
   const t: string[] = tokenizePackage(data);
   const edges: Record<string, ResolvableEdge> = {};
   let i = 0;

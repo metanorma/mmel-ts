@@ -17,6 +17,9 @@ export type ResolvableSubprocess = Subprocess & {
     edges: ResolvableEdge[];
     data: ResolvableSubprocessComponent[];
   };
+  /* Subprocess parsing is somewhat more complicated,
+     so it keeps the equivalent of its own parse context. */
+  _components: Record<string, ResolvableSubprocessComponent>;
 };
 
 export interface SubprocessComponent {
